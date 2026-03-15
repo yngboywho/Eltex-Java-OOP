@@ -1,5 +1,6 @@
 package com.eltex;
 
+import org.jetbrains.annotations.Nullable;
 import java.time.Instant;
 
 public record Post(
@@ -9,11 +10,17 @@ public record Post(
         String author,
         int likes,
         String link,
+        @Nullable
         String authorJob,
+        @Nullable
         String authorAvatar,
         Instant published,
         boolean mentionedMe,
-        boolean likedByMe
+        boolean likedByMe,
+        @Nullable
+        Coordinates coords,
+        @Nullable
+        Attachment attachment
 ) {
 
     public Builder builder() {
@@ -28,7 +35,8 @@ public record Post(
                 .setAuthorAvatar(authorAvatar)
                 .setPublished(published)
                 .setMentionedMe(mentionedMe)
-                .setLikedByMe(likedByMe);
+                .setLikedByMe(likedByMe)
+                .setCoords(coords);
     }
 
     static class Builder {
@@ -38,12 +46,19 @@ public record Post(
         private String content = "";
         private String author = "";
         private String link = "";
-        private String authorJob = "";
-        private String authorAvatar = "";
+        @Nullable
+        private String authorJob;
+        @Nullable
+        private String authorAvatar;
         private Instant published = Instant.now();
         private boolean mentionedMe = false;
         private boolean likedByMe = false;
         private int likes;
+        @Nullable
+        private Coordinates coords;
+        @Nullable
+        private Attachment attachment;
+
 
         // Каждый метод строителя запоминает данные и возвращает сам себя
         public Builder setContent(final String content) {
@@ -71,12 +86,12 @@ public record Post(
             return this;
         }
 
-        public Builder setAuthorJob(final String authorJob) {
+        public Builder setAuthorJob(final @Nullable String authorJob) {
             this.authorJob = authorJob;
             return this;
         }
 
-        public Builder setAuthorAvatar(final String authorAvatar) {
+        public Builder setAuthorAvatar(final @Nullable String authorAvatar) {
             this.authorAvatar = authorAvatar;
             return this;
         }
@@ -101,9 +116,19 @@ public record Post(
             return this;
         }
 
+        public Builder setCoords(final @Nullable Coordinates coords) {
+            this.coords = coords;
+            return this;
+        }
+
+        public Builder setAttachment(final @Nullable Attachment attachment) {
+            this.attachment = attachment;
+            return this;
+        }
+
         // В финале вызываем build, чтобы получить результат
         public Post build() {
-            return new Post(id, authorId, content, author, likes, authorJob, authorAvatar, link, published, mentionedMe, likedByMe);
+            return new Post(id, authorId, content, author, likes, authorJob, authorAvatar, link, published, mentionedMe, likedByMe, coords, attachment);
         }
     }
 }
