@@ -1,28 +1,17 @@
-package com.eltex;
+package com.eltex
 
-public class WallService {
-    private Post post = new Post.Builder().build();
+class WallService {
+    var post: Post = Post()
 
-    public void like() {
-        final var likes = post.likes() + 1;
-        post = post.builder()
-                .setLikes(likes)
-                .build();
+    fun like() {
+        post = post.copy(likes = post.likes + 1)
     }
 
-    public void setContent(final String content) {
-        post = post.builder()
-                .setContent(content)
-                .build();
+    fun setContent(content: String) {
+        post = post.copy(content = content)
     }
 
-    public void setAuthor(final String author) {
-        post = post.builder()
-                .setAuthor(author)
-                .build();
-    }
-
-    public Post getPost() {
-        return post;
+    fun setAuthor(author: String) {
+        post = post.copy(author = author)
     }
 }

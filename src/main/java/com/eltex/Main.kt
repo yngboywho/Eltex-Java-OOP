@@ -1,9 +1,7 @@
-package com.eltex;
+package com.eltex
 
-public class Main {
-    public static void main(String[] args) {
-        final var service = new WallService();
-        service.like();
-        System.out.println(service.getPost()); // com.eltex.Post[content=, author=Anonymous, likes=1]
+fun main(args: Array<String>) {
+        val service = WallService()
+        service.like()
+        println(service.post) // com.eltex.Post[content=, author=Anonymous, likes=1]
     }
-}
